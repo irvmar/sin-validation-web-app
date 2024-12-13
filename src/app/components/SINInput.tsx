@@ -3,11 +3,7 @@
 import { useState } from 'react'
 import { ValidateSinRequest, ValidateSinResponse } from '../api/types'
 
-interface SINInputProps {
-  className?: string
-}
-
-export function SINInput({ className = '' }: SINInputProps) {
+export function SINInput() {
   const [sin, setSin] = useState('')
   const [status, setStatus] = useState<'start' | 'loading' | 'valid' | 'invalid'>('start')
   const [error, setError] = useState('')
@@ -50,13 +46,11 @@ export function SINInput({ className = '' }: SINInputProps) {
     setStatus('start');
     
     const digitsOnly = e.target.value.replace(/[^0-9]/g, '');
-    
+
     const formatted = digitsOnly.replace(/(\d{3})(?=\d)/g, '$1-');
     
     if (digitsOnly.length <= 9) {
-      // Store raw digits in state
       setSin(digitsOnly);
-      // Update input display with formatting
       e.target.value = formatted;
     }
   }
@@ -76,7 +70,7 @@ export function SINInput({ className = '' }: SINInputProps) {
 
 
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className={"space-y-6"}>
       <div className="space-y-4">
         <div className="space-y-2 relative">
           <input
